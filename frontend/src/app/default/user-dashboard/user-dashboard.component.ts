@@ -47,7 +47,7 @@ export class UserDashboardComponent implements OnInit,OnDestroy {
       }
 
       fetchUploads(): void {
-        const tenantId = localStorage.getItem('docuwise_tenantId');
+        const tenantId = localStorage.getItem('docuwise_tenantId')||'680f483b0c5acfa0db3e539b';
         if (!tenantId) {
           this.toastr.error('Tenant ID not found');
           return;
@@ -72,7 +72,7 @@ export class UserDashboardComponent implements OnInit,OnDestroy {
           return;
         }
     
-        const tenantId = localStorage.getItem('docuwise_tenantId');
+        const tenantId = localStorage.getItem('docuwise_tenantId')||'680f483b0c5acfa0db3e539b';
         if (!tenantId) {
           this.toastr.error('Tenant ID not found');
           return;
@@ -157,6 +157,10 @@ export class UserDashboardComponent implements OnInit,OnDestroy {
     
       closeModal(): void {
         this.showUploadModal = false;
+      }
+
+      closeExtractModal(): void {
+        this.showExtractModal = false;
       }
     
       trackByFn(index: number, item: any): any {

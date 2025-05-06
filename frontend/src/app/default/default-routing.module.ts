@@ -35,32 +35,32 @@ const routes: Routes = [
           import('./admin/admin.module').then((m) => m.AdminModule),
         // canActivate: [AdminAuthGuard],
       },
-      // {
-      //   path: 'admin',
-      //   // canActivate: [AdminAuthGuard],
-      //   children: [
-      //     {
-      //       path: 'tenants',
-      //       component: TenantsComponent,
-      //     },
-      //     {
-      //       path: 'users',
-      //       component: UsersComponent,
-      //     },
+      {
+        path: 'admin',
+        // canActivate: [AdminAuthGuard],
+        children: [
+          {
+            path: 'tenants',
+            component: TenantsComponent,
+          },
+          {
+            path: 'users',
+            component: UsersComponent,
+          },
           
-      //   ],
-      // },
-      // {
-      //   path: 'user',
-      //   children: [
+        ],
+      },
+      {
+        path: 'user',
+        children: [
           
-      //     {
-      //       path: 'dashboard',
-      //       component: UserDashboardComponent,
-      //     },
+          {
+            path: 'dashboard',
+            component: UserDashboardComponent,
+          },
           
-      //   ],
-      // },
+        ],
+      },
       // {
       //   path: 'dashboard',
       //   loadChildren: () =>
