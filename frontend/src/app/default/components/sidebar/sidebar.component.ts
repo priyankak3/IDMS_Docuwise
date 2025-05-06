@@ -104,7 +104,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.menuItems = adminArray.filter(menuItem => menuItem);
-    //this.fetchMenu();
+    this.getAll();
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.menuItems.forEach((item) => {
