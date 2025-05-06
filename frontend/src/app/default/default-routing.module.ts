@@ -35,34 +35,40 @@ const routes: Routes = [
           import('./admin/admin.module').then((m) => m.AdminModule),
         // canActivate: [AdminAuthGuard],
       },
-      {
-        path: 'admin',
-        // canActivate: [AdminAuthGuard],
-        children: [
-          {
-            path: 'tenants',
-            component: TenantsComponent,
-          },
-          {
-            path: 'users',
-            component: UsersComponent,
-          },
+      // {
+      //   path: 'admin',
+      //   // canActivate: [AdminAuthGuard],
+      //   children: [
+      //     {
+      //       path: 'tenants',
+      //       component: TenantsComponent,
+      //     },
+      //     {
+      //       path: 'users',
+      //       component: UsersComponent,
+      //     },
           
-        ],
-      },
-      {
-        path: 'user',
-        children: [
+      //   ],
+      // },
+      // {
+      //   path: 'user',
+      //   children: [
           
-          {
-            path: 'dashboard',
-            component: UserDashboardComponent,
-          },
+      //     {
+      //       path: 'dashboard',
+      //       component: UserDashboardComponent,
+      //     },
           
-        ],
-      },
+      //   ],
+      // },
+      // {
+      //   path: 'dashboard',
+      //   loadChildren: () =>
+      //     import('./user-dashboard/user-dashboard.component').then((m) => m.UserDashboardComponent),
+      //   canActivate: [SalesGuard],
+      // },
       {
-        path: 'smart-upload',
+        path: 'smart_upload',
         loadChildren: () =>
           import('./smart-upload/smart-upload.module').then((m) => m.SmartUploadModule),
         canActivate: [SalesGuard],
