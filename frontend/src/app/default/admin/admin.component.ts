@@ -17,7 +17,7 @@ export class AdminComponent {
     localStorage.removeItem('docuwise_token');
     localStorage.removeItem('docuwise_role');
     this.toastService.success("Logged out successfully");
-    this.router.navigate(['/admin-login']);
+    this.router.navigate(['/login']);
   }
 
   goToTenants(): void {

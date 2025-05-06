@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AdminApiService } from '@core/services';
 import { SortEvent } from '@shared/directives';
 import { ToastrService } from 'ngx-toastr';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CreateTenantComponent } from './screens/create-tenant.component';
 
 @Component({
   selector: 'app-tenants',
@@ -21,7 +23,8 @@ export class TenantsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private apiService: AdminApiService,  
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private modalService: NgbModal
   ) {
     this.tenantForm = this.fb.group({
       tenantCode: ['', Validators.required],
@@ -71,10 +74,23 @@ export class TenantsComponent implements OnInit {
     this.direction = direction == "asc" ? 1 : -1;
     this.fetchTenants();
 }
-  openModal() {
-    this.showModal = true;
-    this.tenantForm.reset({ status: 'active' });
-  }
+  
+openModal() {
+  const modalRef = this.modalService.open(CreateTenantComponent, {
+    centered: true,
+    backdrop: 'static',
+    size: 'lg'
+  });
+
+  modalRef.result.then((result) => {
+    if (result) {
+      console.log('Tenant created:', result);
+      // call API or update list
+    }
+  }, () => {
+    console.log('Modal closed');
+  });
+}
 
   closeModal() {
     this.showModal = false;

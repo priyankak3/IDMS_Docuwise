@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DefaultComponent } from './default.component';
 import {
   AccountsGuard,
+  AdminAuthGuard,
   BusinessLeadsGuard,
   DispatchGuard,
   FinanceGuard,
@@ -32,10 +33,11 @@ const routes: Routes = [
         path: 'admin-dashboard',
         loadChildren: () =>
           import('./admin/admin.module').then((m) => m.AdminModule),
-        // canActivate: [SalesGuard],
+        // canActivate: [AdminAuthGuard],
       },
       {
         path: 'admin',
+        // canActivate: [AdminAuthGuard],
         children: [
           {
             path: 'tenants',
