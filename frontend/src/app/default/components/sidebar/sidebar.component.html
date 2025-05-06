@@ -19,7 +19,7 @@
   >
     <a href="javascript:void(0)">
       <div class="partA">
-        <img src="{{ s.image }}" alt="{{ s.title }}" />
+        <img src="{{ s.icon }}" alt="{{ s.label }}" />
       </div>
       <div
         class="partB"
@@ -31,16 +31,16 @@
       >
         <h6
           class="linkTitle"
-          [ngClass]="s.title == 'Powered by IDMS' ? 'poweredByTitle' : ''"
+          [ngClass]="s.label == 'Powered by IDMS' ? 'poweredByTitle' : ''"
         >
-          {{ s.title }}
+          {{ s.label }}
         </h6>
       </div>
     </a>
-    <div class="separatorLine" *ngIf="s.title == 'Support'">
+    <div class="separatorLine" *ngIf="s.label == 'Support'">
       <img
         src="./assets/sideNavIcon/height_separator.svg"
-        alt="{{ s.title }}"
+        alt="{{ s.label }}"
         height="2px"
       />
     </div>
