@@ -7,8 +7,11 @@ import { ApiService } from '@core/services';
   providedIn: 'root',
 })
 export class UserService {
+  
   public $titleChange = new Subject<string>();
   routes: any = {
+    adminLoginPath: '/auth/admin-login',
+    adminLogoutPath: '/admin/logout',
     createPath: '/settings/user/register',
     loginPath: '/settings/user/login',
     getCompanyURLsPath: '/settings/company/getCompanyURLs',
@@ -28,7 +31,11 @@ export class UserService {
       .get(this.routes.getCompanyURLsPath, params)
       .pipe(map((res: any) => res));
   }
-
+  adminLogin(payload: any) {
+    return this.http
+      .post(this.routes.adminLoginPath, payload)
+      .pipe(map((res: any) => res));
+  }
   create(payload: any) {
     return this.http
       .post(this.routes.createPath, payload)
