@@ -9,10 +9,13 @@ import {
 } from '@core/services';
 
 declare interface RouteInfo {
-  title: string;
+  label: string;
   path: string;
-  image: string;
+  icon: string;
   color: string;
+  sequence: number;
+  subMenus: [];
+  type: string;
   isMenuActive: boolean;
   isActive: string;
   activeClass: string;
@@ -20,140 +23,64 @@ declare interface RouteInfo {
 
 export const adminArray: RouteInfo[] = [
   {
-    title: 'Business Leads',
-    path: '/default/business-leads/home',
-    image: './assets/sideNavIcon/businessLeads.svg',
+    icon: "./assets/new_icons/Icon_home.svg",
+    label: 'Dashboard',
+    path: '/default/admin-dashboard',
+    sequence:1,
+    subMenus:[],
+    type:'link',
     color: '#007DFA',
     isMenuActive: false,
     isActive: 'business-leads',
     activeClass: 'businessLeadsA',
   },
   {
-    title: 'Sales',
-    path: '/default/sales/home',
-    image: './assets/sideNavIcon/sales.svg',
+    label: 'Dashboard',
+    path: '/default/user/dashboard',
+    icon: "./assets/new_icons/Icon_home.svg",
     color: '#007DAF',
+    sequence:1,
+    subMenus:[],
+    type:'link',
     isMenuActive: false,
     isActive: 'sales',
     activeClass: 'salesA',
   },
   {
-    title: 'Planning',
-    path: '/default/planning/home',
-    image: './assets/sideNavIcon/planning.svg',
-
+    label: 'Smart Upload',
+    path: '/default/document-upload',
+    icon: './assets/sideNavIcon/planning.svg',
+    sequence:2,
+    subMenus:[],
+    type:'link',
     color: '#007DFA',
     isMenuActive: true,
     isActive: 'planning',
     activeClass: 'planingA',
   },
   {
-    title: 'Purchase',
-    path: '/default/purchase/home',
-    image: './assets/sideNavIcon/purchase.svg',
+    label: 'AI Extraction Queue',
+    path: '/default/auto-extraction',
+    icon: './assets/sideNavIcon/purchase.svg',
+    sequence:3,
+    subMenus:[],
+    type:'link',
     color: '#FA0096',
     isMenuActive: false,
     isActive: 'purchase',
     activeClass: 'purchaseA',
   },
   {
-    title: 'Stores',
-    path: '/default/stores/home',
-    image: './assets/sideNavIcon/store.svg',
+    label: 'AI Generator',
+    path: '/default/ai-generators',
+    icon: './assets/sideNavIcon/store.svg',
+    sequence:4,
+    subMenus:[],
+    type:'link',
     color: '#009696',
     isMenuActive: false,
     isActive: 'stores',
     activeClass: 'storesA',
-  },
-  {
-    title: 'Maintenance',
-    path: '/default/maintenance/home',
-    image: './assets/sideNavIcon/maintenance.svg',
-    color: '#FA3264',
-    isMenuActive: false,
-    isActive: 'maintenance',
-    activeClass: 'maintenanceA',
-  },
-  {
-    title: 'Production',
-    path: '/default/production/home',
-    image: './assets/sideNavIcon/production.svg',
-    color: '#007DFA',
-    isMenuActive: false,
-    isActive: 'production',
-    activeClass: 'productionA',
-  },
-  {
-    title: 'Quality',
-    path: '/default/quality/home',
-    image: './assets/sideNavIcon/quality.svg',
-    color: '#00AF4B',
-    isMenuActive: false,
-    isActive: 'quality',
-    activeClass: 'qualityA',
-  },
-  {
-    title: 'Dispatch',
-    path: '/default/dispatch/home',
-    image: './assets/sideNavIcon/dispatch.svg',
-    color: '#FA3264',
-    isMenuActive: false,
-    isActive: 'dispatch',
-    activeClass: 'dispatchA',
-  },
-  {
-    title: 'HR & Admin',
-    path: '/default/HR/home',
-    image: './assets/sideNavIcon/hr.svg',
-    color: '#007DAF',
-    isMenuActive: false,
-    isActive: 'HR',
-    activeClass: 'hrA',
-  },
-  {
-    title: 'Accounts',
-    path: '/default/accounts/home',
-    image: './assets/sideNavIcon/accounts.svg',
-    color: '#32467D',
-    isMenuActive: true,
-    isActive: 'accounts',
-    activeClass: 'accountsA',
-  },
-  {
-    title: 'Finance',
-    path: '/default/finance/home',
-    image: './assets/sideNavIcon/finance.svg',
-    color: '#007DFA',
-    isMenuActive: true,
-    isActive: 'finance',
-    activeClass: 'financeA',
-  },
-  {
-    title: 'Settings',
-    path: '/default/settings/tabs/master-tabs',
-    image: './assets/sideNavIcon/settings.svg',
-    color: '#FA3264',
-    isMenuActive: false,
-    isActive: 'settings',
-    activeClass: 'settingsA',
-  },
-  {
-    title: 'Support',
-    path: '/default/supports/tabs/master-tabs',
-    image: './assets/sideNavIcon/support.svg',
-    color: '#007DAF',
-    isMenuActive: false,
-    isActive: 'support',
-    activeClass: 'supportA',
-  },
-  {
-    title: 'Powered by IDMS',
-    path: '#',
-    image: './assets/sideNavIcon/logo.svg',
-    color: '#FA0096',
-    isMenuActive: true,
-    isActive: 'string',
-    activeClass: 'idmsLogoA',
   },
 ];
 
@@ -164,9 +91,9 @@ export const adminArray: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
   isActive: boolean = false;
-  menuItems: any = [];
+  menuItems: any[] = [];
   master: RouteInfo[] = [];
-  user: any = {};
+  userRole: string = localStorage.getItem('docuwise_role') || 'user';
   constructor(
     public router: Router,
     private spinner: SpinnerService,
@@ -176,10 +103,15 @@ export class SidebarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.appGlobalService.getData(['menuItems']).subscribe((data) => {
-    //   console.log(data["menuItems"])
-    //   this.menuItems = data['menuItems'];
-    // });
+    this.menuItems = adminArray.filter(menuItem => menuItem);
+    this.getAll();
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.menuItems.forEach((item) => {
+          item.isMenuActive = event.url.includes(item.isActive);
+        });
+      }
+    });
   }
 
   getAll() {
