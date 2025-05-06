@@ -1,0 +1,116 @@
+<div class="listCard card mt-5">
+  <div class="table-header">
+    <label class="heading">Uploaded Documents</label>
+  </div>
+
+  <div class="text-center mb-2">
+    <button class="plusIconSvg btn btn-primary me-1"></button>
+    <button class="btn btn-primary btn-add px-5" type="button" (click)="openModal()">Upload Document</button>
+  </div>
+
+  <hr class="line-border" />
+
+  <div class="table-responsive">
+    <!-- <app-setting-header
+      [data]="{  }"
+      >
+    </app-setting-header> -->
+    <div class="pb-4"> </div>
+
+    <table class="table table-bordered">
+      <thead class="bg-primary text-white">
+        <tr>
+          <th sortable="filename" class="text-start" (sort)="onSort($event)">File name</th>
+          <th sortable="docType" (sort)="onSort($event)">Doc Type</th>
+          <th sortable="status" (sort)="onSort($event)">Status</th>
+          <th sortable="createdAt" (sort)="onSort($event)">Uploaded At</th>
+          <th>Action</th>
+          <th>Validation Errors</th>
+          <th>Validate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let upload of uploads; trackBy: trackByFn">
+          <td class="text-start">{{ upload.originalFilename }}</td>
+          <td>{{ upload.docType }}</td>
+          <td>
+            <span class="badge"
+                  [ngClass]="{
+                    'bg-success': upload.status === 'active',
+                    'bg-secondary': upload.status === 'inactive'
+                  }">
+              {{ upload.status }}
+            </span>
+          </td>
+          <td>{{ upload.createdAt | date: 'short' }}</td>
+          <td>
+            <button *ngIf="upload.status === 'completed'"
+                    class="btn btn-info btn-sm"
+                    (click)="viewExtraction(upload._id)">
+              View Result
+            </button>
+            <span *ngIf="upload.status !== 'completed'">-</span>
+          </td>
+          <td>
+          <ul *ngIf="upload.status === 'needs_correction' && upload.validationErrors?.length" 
+                class="validation-errors m-0 ps-3">
+              <li *ngFor="let error of upload.validationErrors; let i = index"
+                  class="text-danger small">
+                {{ error }}
+              </li>
+            </ul>
+            <span *ngIf="!upload.validationErrors?.length">-</span>
+        </td>
+          <td>
+            <button *ngIf="upload.status === 'needs_correction' || upload.status === 'completed'"
+                    class="btn btn-primary btn-sm"
+                    [routerLink]="['/validate', upload._id]">
+              Validate
+            </button>
+            <span *ngIf="upload.status !== 'needs_correction' && upload.status !== 'completed'">-</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+    <!-- Modal -->
+    <!-- <div class="modal" tabindex="-1" [ngClass]="{'show': showModal}" style="display: block;" (click)="closeModal()">
+      <div class="modal-dialog" (click)="$event.stopPropagation()">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Create Tenant</h5>
+            <button type="button" class="close" (click)="closeModal()">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="tenantForm" (ngSubmit)="handleCreateTenant()">
+              <div class="form-group">
+                <label for="tenantCode">Tenant Code</label>
+                <input type="text" id="tenantCode" class="form-control" formControlName="tenantCode" />
+              </div>
+              <div class="form-group">
+                <label for="tenantName">Tenant Name</label>
+                <input type="text" id="tenantName" class="form-control" formControlName="tenantName" />
+              </div>
+              <div class="form-group">
+                <label for="status">Status</label>
+                <select id="status" class="form-control" formControlName="status">
+                  <option value="active">Active</option>
+                  <option value="inactive">Inactive</option>
+                </select>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+                <button type="submit" class="btn btn-primary" [disabled]="tenantForm.invalid">Create</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+  

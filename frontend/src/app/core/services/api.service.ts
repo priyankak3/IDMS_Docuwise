@@ -38,4 +38,24 @@ export class AdminApiService {
     const headers = this.getHeaders();
     return this.http.post(`${environment.apiEndpoint}/admin/users`, userData, { headers });
   }
+
+  getUploads(tenantId: string): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get(`${environment.apiEndpoint}/uploads`, { 
+      headers,
+      params: { tenantId }
+    });
+  }
+
+  // Upload a new document
+  uploadDocument(formData: FormData): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post(`${environment.apiEndpoint}/uploads`, formData, { headers });
+  }
+
+  // Get extracted results for a specific upload
+  getExtractedResults(uploadId: string): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get(`${environment.apiEndpoint}/extracted-results/${uploadId}`, { headers });
+  }
 }
