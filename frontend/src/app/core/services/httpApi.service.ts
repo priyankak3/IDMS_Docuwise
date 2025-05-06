@@ -31,7 +31,7 @@ export class ApiService {
   ): Observable<any> {
     distinctUntilChanged();
     return this.httpClient.get(path, { params }).pipe(
-      map((res: any) => res.result),
+      map((res: any) => res),
       shareReplay()
     );
   }
@@ -39,7 +39,7 @@ export class ApiService {
   public put(path: string, body: object = {}): Observable<any> {
     distinctUntilChanged();
     return this.httpClient.put(path, body).pipe(
-      map((res: any) => res.result),
+      map((res: any) => res),
       shareReplay()
     );
   }
@@ -47,7 +47,7 @@ export class ApiService {
   public post(path: string, body: object = {}): Observable<any> {
     distinctUntilChanged();
     return this.httpClient.post(path, body).pipe(
-      map((res: any) => res.result),
+      map((res: any) => res),
       shareReplay()
     );
   }
@@ -55,7 +55,7 @@ export class ApiService {
   public delete(path: string): Observable<any> {
     distinctUntilChanged();
     return this.httpClient.delete(path).pipe(
-      map((res: any) => res.result),
+      map((res: any) => res),
       shareReplay()
     );
   }

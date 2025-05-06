@@ -13,6 +13,7 @@ import {AppGlobalService, ExportExcelService, ExportToPDFService, StorageService
 import {MenuTitleService} from "./core/services/menu-title.service";
 import {LocationStrategy, HashLocationStrategy} from "@angular/common";
 import {NgChartsModule} from "ng2-charts";
+
 import {
     AccountsGuard,
     BusinessLeadsGuard,
@@ -58,6 +59,7 @@ const guards = [
         NgbModule,
         NgChartsModule,
         BrowserAnimationsModule,
+        ReactiveFormsModule,
         // ToastrModule.forRoot(),
         ToastrModule.forRoot({
             timeOut: 3000, // Time to close the toaster (in milliseconds)

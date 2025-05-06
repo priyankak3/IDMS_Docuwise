@@ -1,0 +1,106 @@
+<div class="listCard card mt-5">
+  <div class="table-header">
+    <label class="heading">Manage Tenants</label>
+  </div>
+
+  <div class="text-center mb-2">
+    <button class="plusIconSvg btn btn-primary me-1"></button>
+    <button class="btn btn-primary btn-add px-5" type="button" (click)="openModal()"> New Tenant</button>
+  </div>
+
+  <hr class="line-border" />
+
+  <div class="table-responsive">
+    <app-setting-header
+      [data]="{  }"
+      >
+    </app-setting-header>
+
+    <table class="table table-bordered">
+      <thead class="bg-primary text-white">
+        <tr>
+          <th sortable="tenantCode" (sort)="onSort($event)">Tenant Code</th>
+          <th sortable="tenantName" (sort)="onSort($event)">Tenant Name</th>
+          <th sortable="status" (sort)="onSort($event)">Status</th>
+          <th sortable="createdAt" (sort)="onSort($event)">Created At</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tenant of tenants; trackBy: trackByFn">
+          <td>{{ tenant.tenantCode }}</td>
+          <td class="text-start">{{ tenant.tenantName }}</td>
+          <td>
+            <span class="badge"
+                  [ngClass]="{
+                    'bg-success': tenant.status === 'active',
+                    'bg-secondary': tenant.status === 'inactive'
+                  }">
+              {{ tenant.status }}
+            </span>
+          </td>
+          <td>{{ tenant.createdAt | date: 'short' }}</td>
+          <td>
+            <!-- <div class="dropdown">
+              <button class="dropbtn"></button>
+              <div class="dropdown-content">
+                <a href="javascript:void(0)" (click)="viewTenant(tenant)">
+                  <i class="fa fa-eye fa-lg me-2 text-primary" aria-hidden="true"></i>
+                  View
+                </a>
+                <a href="javascript:void(0)" (click)="editTenant(tenant)">
+                  <i class="fa fa-pencil-square-o fa-lg me-2 text-primary" aria-hidden="true"></i>
+                  Edit
+                </a>
+                <a *ngIf="user === superAdminId" href="javascript:void(0)" (click)="deleteTenant(tenant)">
+                  <i class="fa fa-trash text-primary" aria-hidden="true"></i>
+                  Delete
+                </a>
+              </div>
+            </div> -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+    <!-- Modal -->
+    <!-- <div class="modal" tabindex="-1" [ngClass]="{'show': showModal}" style="display: block;" (click)="closeModal()">
+      <div class="modal-dialog" (click)="$event.stopPropagation()">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Create Tenant</h5>
+            <button type="button" class="close" (click)="closeModal()">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="tenantForm" (ngSubmit)="handleCreateTenant()">
+              <div class="form-group">
+                <label for="tenantCode">Tenant Code</label>
+                <input type="text" id="tenantCode" class="form-control" formControlName="tenantCode" />
+              </div>
+              <div class="form-group">
+                <label for="tenantName">Tenant Name</label>
+                <input type="text" id="tenantName" class="form-control" formControlName="tenantName" />
+              </div>
+              <div class="form-group">
+                <label for="status">Status</label>
+                <select id="status" class="form-control" formControlName="status">
+                  <option value="active">Active</option>
+                  <option value="inactive">Inactive</option>
+                </select>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+                <button type="submit" class="btn btn-primary" [disabled]="tenantForm.invalid">Create</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+  

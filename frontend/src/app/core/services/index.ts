@@ -8,3 +8,4 @@ export * from './app-global.service';
 export * from './spinner.service';
 export * from './toast.service';
 export * from './months-with-days.service';
+export * from './api.service';

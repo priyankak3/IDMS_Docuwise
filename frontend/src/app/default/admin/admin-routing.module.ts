@@ -8,32 +8,7 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       { path: '', redirectTo: 'tabs', pathMatch: 'full' },
-      // {
-      //   path: 'tabs',
-      //   loadChildren: () =>
-      //     import('./tabs/tabs.module').then((m) => m.TabsModule),
-      // },
-      // {
-      //   path: 'home',
-      //   loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
-      // },
-      // {
-      //   path: 'master',
-      //   loadChildren: () =>
-      //     import('./master/master.module').then((m) => m.MasterModule),
-      // },
-      // {
-      //   path: 'transactions',
-      //   loadChildren: () =>
-      //     import('./transactions/transactions.module').then(
-      //       (m) => m.TransactionsModule
-      //     ),
-      // },
-      // {
-      //   path: 'reports',
-      //   loadChildren: () =>
-      //     import('./reports/reports.module').then((m) => m.ReportsModule),
-      // },
+     {path:"tenants", loadChildren: () => import('./screens/tenants/tenants.module').then(m => m.TenantsModule)},
     ],
   },
   
