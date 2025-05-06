@@ -19,23 +19,22 @@ export class AdminApiService {
   // Example GET request
   getTenants(): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.get(`${environment.apiEndpoint}/admin/tenants`, { headers });
+    return this.http.get(`/admin/tenants`, { headers });
   }
 
   // Example POST request
   createTenant(formData: any): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.post(`${environment.apiEndpoint}/admin/tenants`, formData, { headers });
+    return this.http.post(`/admin/tenants`, formData, { headers });
   }
 
   getUsers(): Observable<any> {
     const headers = this.getHeaders();
-    console.log('API Base:', `${environment.apiEndpoint}/admin/users`);
-    return this.http.get(`${environment.apiEndpoint}/admin/users`, { headers });
+    return this.http.get(`/admin/users`, { headers });
   }
 
   createUser(userData: any, token: string): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.post(`${environment.apiEndpoint}/admin/users`, userData, { headers });
+    return this.http.post(`/admin/users`, userData, { headers });
   }
 }

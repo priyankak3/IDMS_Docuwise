@@ -99,9 +99,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
      
       this.storageService.set("docuwise_token", success.token);
       this.storageService.set("docuwise_role", success.role);
-console.log(this.storageService.get("docuwise_token"));
       this.toastService.success("Admin Login Successful!");
       this.router.navigate(["/default/admin-dashboard"]);
+
+
+
       this.spinner.hide();
       // this.storageService.set('IDMSAUser', success);
       // this.menuService.getAllGlobalData({}).subscribe((data) => {
