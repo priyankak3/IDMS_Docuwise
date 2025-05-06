@@ -30,7 +30,7 @@ const routes: Routes = [
         path: 'admin-dashboard',
         loadChildren: () =>
           import('./admin/admin.module').then((m) => m.AdminModule),
-        canActivate: [SalesGuard],
+        // canActivate: [SalesGuard],
       },
       // {
       //   path: 'sales',

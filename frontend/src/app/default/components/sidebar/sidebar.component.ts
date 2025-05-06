@@ -176,24 +176,24 @@ export class SidebarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.appGlobalService.getData(['menuItems']).subscribe((data) => {
-      console.log(data["menuItems"])
-      this.menuItems = data['menuItems'];
-    });
+    // this.appGlobalService.getData(['menuItems']).subscribe((data) => {
+    //   console.log(data["menuItems"])
+    //   this.menuItems = data['menuItems'];
+    // });
   }
 
   getAll() {
-    this.spinner.show();
-    let payload = {
-      system: 'main',
-      column: 'menuOrder',
-      direction: 1,
-    };
-    this.menuService.getAll(payload).subscribe((success) => {
-      this.menuItems = success;
-      this.gotoTop();
-      this.spinner.hide();
-    });
+    // this.spinner.show();
+    // let payload = {
+    //   system: 'main',
+    //   column: 'menuOrder',
+    //   direction: 1,
+    // };
+    // this.menuService.getAll(payload).subscribe((success) => {
+    //   this.menuItems = success;
+    //   this.gotoTop();
+    //   this.spinner.hide();
+    // });
   }
 
   navigateTo(page: string, isMenuActive: boolean = false) {
