@@ -8,9 +8,10 @@ const verifyAdmin = (req, res, next) => {
       return res.status(401).json({ message: "Unauthorized: Token missing" });
     }
 
-    const token = authHeader.split(" ")[1];
+    let token = authHeader.split(" ")[1];
+    token = token.replace(/^"|"$/g, "");
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    
+
     if (decoded.role !== "admin") {
       return res.status(403).json({ message: "Forbidden: Admins only" });
     }
