@@ -6,6 +6,7 @@ import { DefaultComponent } from './default.component';
 import { SideNavHoverDirective } from '@directives/sideNavhover.directive';
 import { NavHeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     SidebarComponent,
     NavHeaderComponent,
     SideNavHoverDirective,
+    AdminComponent,
   ],
   imports: [CommonModule, DefaultRoutingModule],
 })

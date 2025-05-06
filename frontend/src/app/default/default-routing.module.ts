@@ -26,6 +26,12 @@ const routes: Routes = [
     component: DefaultComponent,
     children: [
       { path: '', redirectTo: 'settings', pathMatch: 'full' },
+      {
+        path: 'admin-dashboard',
+        loadChildren: () =>
+          import('./admin/admin.module').then((m) => m.AdminModule),
+        canActivate: [SalesGuard],
+      },
       // {
       //   path: 'sales',
       //   loadChildren: () =>
