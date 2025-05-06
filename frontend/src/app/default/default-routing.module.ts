@@ -20,7 +20,7 @@ import {
 import { TenantsComponent } from './admin/screens/tenants/tenants.component';
 import { UsersComponent } from './admin/screens/users/users.component';
 // import { CompanyComponent } from './settings/master/global/company/company.component';
- 
+
 
 const routes: Routes = [
   {
@@ -56,4 +56,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class DefaultRoutingModule {}
+export class DefaultRoutingModule { }
