@@ -71,7 +71,7 @@ export class NavHeaderComponent implements OnInit {
     let payload = {
       isLoggedIn: 'No',
     };
-
+    this.spinner.hide();
     // this.userService.update(this.user._id, payload).subscribe((success) => {
     //   this.spinner.hide();
     // });
