@@ -6,7 +6,6 @@ import { StorageService } from '@core/services';
   selector: 'app-smart-upload',
   template: `<app-custom-menu-header [menuData]="menuData" *ngIf="!isReport"></app-custom-menu-header
         ><router-outlet></router-outlet>`,
-  styleUrls: ['./smart-upload.component.scss']
 })
 export class SmartUploadComponent implements OnInit {
   isReport: boolean = false;
