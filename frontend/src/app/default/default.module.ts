@@ -13,6 +13,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     SidebarComponent,
     NavHeaderComponent,
     SideNavHoverDirective,
+
   ],
   imports: [CommonModule, DefaultRoutingModule],
 })
