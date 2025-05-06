@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { MenuService } from '@services/settings';
+import { AdminApiService } from '@core/services';
 
 import {
   AppGlobalService,
@@ -48,7 +49,7 @@ export const adminArray: RouteInfo[] = [
   },
   {
     label: 'Smart Upload',
-    path: '/default/document-upload',
+    path: '/default/smart_upload',
     icon: './assets/sideNavIcon/planning.svg',
     sequence:2,
     subMenus:[],
@@ -93,25 +94,26 @@ export class SidebarComponent implements OnInit {
   isActive: boolean = false;
   menuItems: any[] = [];
   master: RouteInfo[] = [];
-  userRole: string = localStorage.getItem('docuwise_role') || 'user';
+  userRole: string = (localStorage.getItem('docuwise_role') || 'user').replace(/"/g, '');
   constructor(
     public router: Router,
     private spinner: SpinnerService,
     private storageService: StorageService,
     private menuService: MenuService,
-    private appGlobalService: AppGlobalService
+    private appGlobalService: AppGlobalService,
+    private apiService: AdminApiService
   ) {}
 
   ngOnInit(): void {
     this.menuItems = adminArray.filter(menuItem => menuItem);
-    this.getAll();
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.menuItems.forEach((item) => {
-          item.isMenuActive = event.url.includes(item.isActive);
-        });
-      }
-    });
+    //this.getAll();
+    // this.router.events.subscribe((event) => {
+    //   if (event instanceof NavigationEnd) {
+    //     this.menuItems.forEach((item) => {
+    //       item.isMenuActive = event.url.includes(item.isActive);
+    //     });
+    //   }
+    // });
   }
 
   getAll() {
@@ -126,12 +128,24 @@ export class SidebarComponent implements OnInit {
     //   this.gotoTop();
     //   this.spinner.hide();
     // });
+    this.spinner.show();
+    this.apiService.getMenuByRole(this.userRole).subscribe({
+      next: (response) => {
+        this.menuItems = response;
+        console.log(this.menuItems);
+        this.gotoTop();
+        this.spinner.hide();
+      },
+      error: (error) => {
+        console.error('Error fetching menu:', error);
+        this.spinner.hide();
+      }
+    });
   }
 
   navigateTo(page: string, isMenuActive: boolean = false) {
     if (isMenuActive) {
       this.router.navigate([page]);
-      this.storageService.set('tab', 'HOME');
     }
   }
   getBackgroundColor(color: string) {

@@ -62,7 +62,7 @@ const routes: Routes = [
         ],
       },
       // {
-      //   path: 'dashboard',
+      //   path: 'user-dashboard',
       //   loadChildren: () =>
       //     import('./user-dashboard/user-dashboard.component').then((m) => m.UserDashboardComponent),
       //   canActivate: [SalesGuard],
@@ -71,7 +71,7 @@ const routes: Routes = [
         path: 'smart_upload',
         loadChildren: () =>
           import('./smart-upload/smart-upload.module').then((m) => m.SmartUploadModule),
-        canActivate: [SalesGuard],
+        //canActivate: [SalesGuard],
       },
     ],
   },

@@ -16,6 +16,11 @@ export class AdminApiService {
     return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
 
+  getMenuByRole(userRole: string): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get(`/menu/${userRole}`, { headers });
+  }
+
   // Example GET request
   getTenants(): Observable<any> {
     const headers = this.getHeaders();
