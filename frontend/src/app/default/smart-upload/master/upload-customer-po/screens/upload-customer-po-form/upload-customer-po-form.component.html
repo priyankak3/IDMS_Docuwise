@@ -1,0 +1,75 @@
+<form [formGroup]="form">
+    <div class="row justify-content-center form-page">
+        <div class="col-md-11 card-form pb-0">
+            <div class="row form-header">
+                <div class="col heading">
+                    <label>Upload Customer PO</label>
+                </div>
+            </div>
+            <div class="form-body px-4">
+                <!-- <hr class="line-border" /> -->
+                <div class="row mb-4">
+                    <div class="col-12 mx-0">
+                        <app-file-upload
+                            [fileName]="form.controls['uploadFile'].value"
+                            [url]="form.controls['uploadFileUrl'].value"
+                            [label]="'Upload Customer PO'"
+                            [(file)]="uploadFile"
+                        ></app-file-upload>
+                    </div>
+                </div>
+                <div class="row mb-4 mt-4">
+                    <!-- <div class="col"></div> -->
+                    <div class="col">
+                        <label class="form-label">Select<span class="text-danger">*</span></label>
+                        <select class="form-select" formControlName="mailType">
+                            <option value="Customer PO"> Customer PO</option>
+                            <option value="Invoice"> Invoice</option>
+                            <option value="Certificate of Analysis (COA)"> Certificate of Analysis (COA)</option>
+                            <!-- <option [value]="null" selected disabled> Mail</option> -->
+                            <!-- <option [value]="item" *ngFor="let item of documentType">
+                                {{ item }}
+                            </option> -->
+                        </select>
+                    </div>
+                    <!-- <div class="col"></div> -->
+                </div>
+                <div class="row">
+                    <div class="col-12 my-2">
+                        <hr *ngIf="action != 'view'" class="line-border" />
+                    </div>
+                </div>
+                <div *ngIf="!['view'].includes(action)" class="d-flex justify-content-center mb-4">
+                    <!-- <div class="d-grid col-md-1 me-5" [ngClass]="{'d-none': action == 'View'}">
+                        <button class="btn btn-primary" type="button" (click)="reset()">Reset</button>
+                    </div> -->
+                    <div class="d-grid col-md-1">
+                        <button class="btn btn-primary" type="button" (click)="submit()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="row justify-content-center form-page mt-4">
+        <div class="col-md-11 card-form pb-0">
+            <div class="form-body px-4 mb-4">
+                <hr class="line-border" />
+                <div class="row">
+                    <div class="col-12">
+                        <h5 class="fs-3">
+                            <span class="me-2" role="img" aria-label="guidelines">📝</span>Usage Guidelines
+                        </h5>
+                        <ul>
+                            <li class="fs-5"><strong>Supported formats:</strong> <b>JPEG, JPG, PNG</b></li>
+                            <li class="fs-5">Ensure the image is clear and not blurry.</li>
+                            <li class="fs-5">Keep the business card flat while capturing.</li>
+                            <li class="fs-5">Avoid excessive shadows or reflections.</li>
+                            <li class="fs-5">Ensure all important details (Name, Email, Contact) are visible.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+</form>
