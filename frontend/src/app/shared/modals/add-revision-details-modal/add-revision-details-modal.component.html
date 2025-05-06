@@ -1,0 +1,78 @@
+<div class="modelPage">
+    <div class="modal-header">
+        <div class="heading">Revision Info</div>
+        <div>
+            <button
+                *ngIf="action == 'view'"
+                type="button"
+                class="btn btn-cross btn-sm"
+                aria-label="Close"
+                (click)="this.activeModal.close()"
+            >
+                <i class="fa fa-times-circle" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+    <div class="">
+        <form [formGroup]="form">
+            <hr class="line-border px-5 mt-0" />
+            <div class="row mt-4 px-5">
+                <div class="col-6">
+                    <label class="form-label"> Revision No. <span class="text-danger">*</span> </label>
+                    <div class="d-flex">
+                        <input
+                            class="form-control bg-white-smoke"
+                            type="text"
+                            [value]="'Rev ' + f['revisionNo'].value"
+                            readonly
+                        />
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <label class="form-label"> Revision Date <span class="text-danger">*</span> </label>
+                    <div class="d-flex">
+                        <input class="form-control bg-white-smoke" type="date" formControlName="revisionDate" />
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4 px-5">
+                <div class="col">
+                    <label class="form-label">Reason for Revision <span class="text-danger">*</span> </label>
+                    <div class="d-flex">
+                        <input class="form-control" type="text" formControlName="reasonForRevision" />
+                    </div>
+                </div>
+            </div>
+            <div class="row my-4 pb-3 px-5">
+                <div class="col-6">
+                    <label class="form-label"> Revision Proposed by <span class="text-danger">*</span> </label>
+                    <div class="d-flex">
+                        <input class="form-control" type="text" formControlName="revisionProposedBy" />
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <label class="form-label"> Revision Approved by <span class="text-danger">*</span> </label>
+                    <div class="d-flex">
+                        <input class="form-control" type="text" formControlName="revisionApprovedBy" />
+                    </div>
+                </div>
+            </div>
+
+            <hr *ngIf="action != 'view'" class="line-border mb-4" />
+        </form>
+
+        <div *ngIf="action != 'view'" class="row px-5 py-3">
+            <div class="col-4">
+                <div (click)="this.activeModal.close()" class="back-icon pointer"></div>
+            </div>
+            <div class="col-4">
+                <div class="text-center mb-4">
+                    <button type="button" class="btn bg-primary px-4" (click)="dismissModel()">Save & Close</button>
+                </div>
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </div>
+</div>

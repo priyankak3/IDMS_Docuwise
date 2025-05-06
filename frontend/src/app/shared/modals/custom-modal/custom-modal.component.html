@@ -1,0 +1,31 @@
+<div class="modelPage">
+    <div class="modal-header">
+        <div class="heading">{{ headerName }}</div>
+        <div>
+            <button type="button" class="btn btn-cross btn-sm" aria-label="Close" (click)="activeModal.close()">
+                <i class="fa fa-times-circle" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row my-4 px-5 form-page">
+            <div *ngIf="headerName == 'Customer Address'" class="col px-0">
+                <textarea
+                    class="form-control form-text-area bg-yellow-color"
+                    [(ngModel)]="customDetails"
+                    rows="4"
+                    [disabled]="['view'].includes(action)"
+                    readonly
+                ></textarea>
+            </div>
+        </div>
+
+        <hr *ngIf="action != 'view'" class="row line-border" />
+
+        <div class="row mb-4">
+            <div *ngIf="action != 'view'" class="col text-center">
+                <button class="btn btn-primary" type="button" (click)="save()">Save & Close</button>
+            </div>
+        </div>
+    </div>
+</div>

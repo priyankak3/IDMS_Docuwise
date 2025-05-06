@@ -1,0 +1,247 @@
+<div class="modelPage">
+    <div class="modal-header">
+        <div class="heading">{{ modalTitle }}</div>
+        <div>
+            <button
+                type="button"
+                class="btn btn-cross btn-sm"
+                aria-label="Close"
+                (click)="this.activeModal.close(this.tableBody?.reverse())"
+            >
+                <i class="fa fa-times-circle" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+    <div class="">
+        <hr class="line-border px-5 mt-0" />
+        <div class="row justify-content-between my-4 px-5">
+            <div class="col-4"></div>
+
+            <div class="col-4 d-flex justify-content-center">
+                <ngb-pagination
+                    *ngIf="tableBody.length > 0"
+                    [collectionSize]="tableBody.length"
+                    [(page)]="page"
+                    [pageSize]="pageSize"
+                    [boundaryLinks]="false"
+                >
+                    <ng-template ngbPaginationPrevious>
+                        <img src="./assets/new_icons/pagination_prev.svg" width="20rem" />
+                    </ng-template>
+                    <ng-template ngbPaginationNext>
+                        <img src="./assets/new_icons/pagination_next.svg" width="20rem" />
+                    </ng-template>
+                    <ng-template ngbPaginationPages let-page let-pages="pages">
+                        <li class="ngb-custom-pages-item align-self-center" *ngIf="pages.length > 0">
+                            <span class="page-label me-2 ms-1"> Page {{ page }} of {{ pages[pages.length - 1] }} </span>
+                        </li>
+                    </ng-template>
+                </ngb-pagination>
+            </div>
+            <div class="col-4 text-end"></div>
+        </div>
+        <hr class="line-border px-5 mt-0" />
+        <div style="min-height: 28rem" class="table-responsive px-5">
+            <table class="table table-bordered table-sticky mb-0">
+                <thead class="bg-primary">
+                    <tr class="text-white">
+                        <th *ngFor="let t of tableHeader" [class]="t.class">
+                            {{ t.label }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor="
+                            let u of tableBody
+                                | searchFi1ter : search
+                                | slice : (page - 1) * pageSize : (page - 1) * pageSize + pageSize;
+                            let i = index
+                        "
+                    >
+                        <td *ngFor="let t of tableHeader" [class]="t.class">
+                            <span *ngIf="!t.ngbTooltip && !t.statusIcon"> {{ u[t.value] }} </span>
+
+                            <span
+                                *ngIf="t.ngbTooltip"
+                                class="pointer"
+                                [ngbTooltip]="u[t.value] | findTextContent"
+                                [placement]="'top'"
+                            >
+                                {{ u[t.value] }}
+                            </span>
+
+                            <span *ngIf="t.statusIcon" class="d-flex justify-content-center">
+                                <div *ngIf="u[t.value] == 'Active'" class="statusActive"></div>
+                                <div *ngIf="u[t.value] == 'Inactive'" class="statusInActive"></div>
+                            </span>
+
+                            <i
+                                *ngIf="t.revInfo"
+                                class="fa fa-eye fa-lg me-2 text-primary pointer"
+                                aria-hidden="true"
+                                (click)="openEditionDetailsModal(u)"
+                            ></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="modelPage">
+    <div class="modal-header">
+        <div class="heading">Revision History</div>
+        <div>
+            <button
+                type="button"
+                class="btn btn-cross btn-sm"
+                aria-label="Close"
+                (click)="this.activeModal.close(this.revisionHistory)"
+            >
+                <i class="fa fa-times-circle" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+    <div class="">
+        <hr class="line-border px-5 mt-0" />
+        <div class="row justify-content-between my-4 px-5">
+            <div class="col-4"></div>
+
+            <div class="col-4 d-flex justify-content-center">
+                <ngb-pagination
+                    *ngIf="revisionHistory.length > 0"
+                    [collectionSize]="revisionHistory.length"
+                    [(page)]="page"
+                    [pageSize]="pageSize"
+                    [boundaryLinks]="false"
+                >
+                    <ng-template ngbPaginationPrevious>
+                        <img
+                            src="./assets/new_icons/pagination_prev.svg"
+                            width="20rem"
+                            [ngClass]="{'disabled-icon': page == 1}"
+                        />
+                    </ng-template>
+                    <ng-template ngbPaginationNext>
+                        <img
+                            src="./assets/new_icons/pagination_next.svg"
+                            width="20rem"
+                            [ngClass]="{'disabled-icon': page == totalPageCount}"
+                        />
+                    </ng-template>
+                    <ng-template ngbPaginationPages let-page let-pages="pages">
+                        <li class="ngb-custom-pages-item align-self-center" *ngIf="pages.length > 0">
+                            <span class="page-label me-2 ms-1 text-secondary"> Revision {{ page }} </span>
+                        </li>
+                    </ng-template>
+                </ngb-pagination>
+            </div>
+            <div class="col-4 text-end">
+                <button
+                    class="btn btn-primary px-5"
+                    (click)="openEditionDetailsModal(revisionHistory[page - 1])"
+                >
+                    Revision Details
+                </button>
+            </div>
+        </div>
+        <hr class="line-border px-5 mt-0" />
+        <div class="row px-5 mb-4 pb-3">
+            <div class="col-12">
+                <ng-container>
+                    <div class="row mt-1">
+                        <div class="col-3">
+                            <label class="form-label">SAC Code <span class="text-danger">*</span> </label>
+                            <input
+                                type="text"
+                                class="form-control bg-white-smoke"
+                                [(ngModel)]="revisionHistory[page - 1].sacCode"
+                                readonly
+                            />
+                        </div>
+                        <div class="col-3">
+                            <label class="form-label"> Description of Service <span class="text-danger">*</span></label>
+                            <input
+                                type="text"
+                                class="form-control bg-mix-pink-color"
+                                [(ngModel)]="revisionHistory[page - 1].serviceDescription"
+                                readonly
+                            />
+                        </div>
+                        <div class="col-3">
+                            <label class="form-label"> GST Rate % <span class="text-danger">*</span></label>
+                            <input
+                                type="text"
+                                class="form-control bg-mix-pink-color"
+                                [(ngModel)]="revisionHistory[page - 1].gstRate"
+                                readonly
+                            />
+                        </div>
+                        <div class="col-3">
+                            <label class="form-label"> IGST Rate % <span class="text-danger"></span></label>
+                            <input
+                                type="text"
+                                class="form-control bg-white-smoke"
+                                [(ngModel)]="revisionHistory[page - 1].igstRate"
+                                readonly
+                            />
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-3">
+                            <label class="form-label"> CGST Rate % <span class="text-danger"></span> </label>
+                            <input
+                                type="text"
+                                class="form-control bg-white-smoke"
+                                [(ngModel)]="revisionHistory[page - 1].sgstRate"
+                                readonly
+                            />
+                        </div>
+                        <div class="col-3">
+                            <label class="form-label"> SGST Rate % <span class="text-danger"></span> </label>
+                            <input
+                                type="number"
+                                class="form-control bg-white-smoke"
+                                [(ngModel)]="revisionHistory[page - 1].cgstRate"
+                                readonly
+                            />
+                        </div>
+                        <div class="col-3">
+                            <label class="form-label"> UTGST Rate % <span class="text-danger"></span> </label>
+                            <input
+                                type="text"
+                                class="form-control bg-white-smoke"
+                                [(ngModel)]="revisionHistory[page - 1].ugstRate"
+                                readonly
+                            />
+                        </div>
+                        <div class="col-3">
+                            <label class="form-label"> Status <span class="text-danger">*</span> </label>
+
+                            <div class="d-flex">
+                                <input
+                                    type="text"
+                                    class="form-control bg-white-smoke"
+                                    [value]="revisionHistory[page - 1].isActive == 'Y' ? 'Active' : 'Inactive'"
+                                    readonly
+                                />
+                                <span class="input-group-text statusSpanHeight bg-white-smoke">
+                                    <div
+                                        *ngIf="revisionHistory[page - 1].isActive == 'Y'"
+                                        class="statusActive"
+                                    ></div>
+                                    <div
+                                        *ngIf="revisionHistory[page - 1].isActive == 'N'"
+                                        class="statusInActive"
+                                    ></div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div> -->
