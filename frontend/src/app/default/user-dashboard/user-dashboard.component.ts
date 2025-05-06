@@ -4,6 +4,7 @@ import { AdminApiService } from '../../core/services/api.service';
 import { SortEvent } from '@shared/directives';
 import { ToastrService } from 'ngx-toastr';
 import * as XLSX from 'xlsx';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -28,6 +29,7 @@ export class UserDashboardComponent implements OnInit,OnDestroy {
   direction: number =-1;
   
     constructor(
+        private modalService: NgbModal,
       private apiService: AdminApiService,
       private router: Router,
       private toastr: ToastrService
