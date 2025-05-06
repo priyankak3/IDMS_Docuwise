@@ -18,7 +18,7 @@ import {
   SupportGuard
 } from '../core/guards';
 // import { CompanyComponent } from './settings/master/global/company/company.component';
- 
+
 
 const routes: Routes = [
   {
@@ -116,6 +116,8 @@ const routes: Routes = [
       //   canActivate: [FinanceGuard],
       // },
       // { path: 'company-profile', component: CompanyComponent },
+
+      { path: 'smart_upload', loadChildren: () => import('./smart-upload/smart-upload.module').then(m => m.SmartUploadModule) },
     ],
   },
 ];
@@ -124,4 +126,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class DefaultRoutingModule {}
+export class DefaultRoutingModule { }
