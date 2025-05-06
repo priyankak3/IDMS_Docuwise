@@ -24,6 +24,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./upload-coa/upload-coa.module').then((m) => m.UploadCOAModule),
       },
+      {
+        path: 'upload_TDS',
+        loadChildren: () =>
+          import('./upload-tds/upload-tds.module').then((m) => m.UploadTDSModule),
+      },
     ],
   },
 ];

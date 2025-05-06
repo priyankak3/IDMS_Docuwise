@@ -60,7 +60,13 @@ const routes: Routes = [
           },
           
         ],
-      }
+      },
+      {
+        path: 'smart-upload',
+        loadChildren: () =>
+          import('./smart-upload/smart-upload.module').then((m) => m.SmartUploadModule),
+        canActivate: [SalesGuard],
+      },
     ],
   },
 ];
