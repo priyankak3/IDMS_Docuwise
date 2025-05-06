@@ -36,14 +36,14 @@ export class NavHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getCompanyURLs();
-    this.user = this.storageService.get('IDMSAUser');
-    this.pushRightClass = 'push-right';
-    window.scroll({
-      top: 0,
-      left: 0,
-      behavior: 'smooth',
-    });
+    // this.getCompanyURLs();
+    // this.user = this.storageService.get('IDMSAUser');
+    // this.pushRightClass = 'push-right';
+    // window.scroll({
+    //   top: 0,
+    //   left: 0,
+    //   behavior: 'smooth',
+    // });
   }
   isToggled(): boolean {
     const dom: any = document.querySelector('body');
@@ -60,10 +60,10 @@ export class NavHeaderComponent implements OnInit {
 
   getCompanyURLs() {
     this.spinner.show();
-    this.userService.getCompanyURLs({}).subscribe((success) => {
-      this.logo = success.logoUrl;
-      this.spinner.hide();
-    });
+    // this.userService.getCompanyURLs({}).subscribe((success) => {
+    //   this.logo = success.logoUrl;
+    //   this.spinner.hide();
+    // });
   }
 
   updateUser() {
@@ -72,8 +72,8 @@ export class NavHeaderComponent implements OnInit {
       isLoggedIn: 'No',
     };
 
-    this.userService.update(this.user._id, payload).subscribe((success) => {
-      this.spinner.hide();
-    });
+    // this.userService.update(this.user._id, payload).subscribe((success) => {
+    //   this.spinner.hide();
+    // });
   }
 }
