@@ -20,7 +20,7 @@ import {
 } from '../core/guards';
 import { TenantsComponent } from './admin/screens/tenants/tenants.component';
 import { UsersComponent } from './admin/screens/users/users.component';
-// import { CompanyComponent } from './settings/master/global/company/company.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
 
 const routes: Routes = [
@@ -50,12 +50,23 @@ const routes: Routes = [
           
         ],
       },
+      {
+        path: 'user',
+        children: [
+          
+          {
+            path: 'dashboard',
+            component: UserDashboardComponent,
+          },
+          
+        ],
+      }
     ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class DefaultRoutingModule { }
