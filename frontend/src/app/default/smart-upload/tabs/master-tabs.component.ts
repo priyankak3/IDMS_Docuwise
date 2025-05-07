@@ -33,7 +33,8 @@ export class MasterTabsComponent  implements OnInit {
       this.menuItemId = this.appGlobalService.menuItemId;
       this.getAll();
       this.menuTitleService.set({
-          title: `${this.title} - Masters`,
+        //   title: `${this.title} - Masters`,
+          title: `Smart Upload - Masters`,
           subTitle: null,
           type: null
       });
